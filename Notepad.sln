@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notepad", "Notepad\Notepad.csproj", "{AD306387-3D23-4149-B04B-23A35DF4F698}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C344D637-B9CF-4188-A0B0-D272C8E73815}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippets", "Snippets\Snippets.csproj", "{7A5AD8E1-6F2B-4281-BAE2-83A35A72A125}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD306387-3D23-4149-B04B-23A35DF4F698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD306387-3D23-4149-B04B-23A35DF4F698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD306387-3D23-4149-B04B-23A35DF4F698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD306387-3D23-4149-B04B-23A35DF4F698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A5AD8E1-6F2B-4281-BAE2-83A35A72A125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A5AD8E1-6F2B-4281-BAE2-83A35A72A125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A5AD8E1-6F2B-4281-BAE2-83A35A72A125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A5AD8E1-6F2B-4281-BAE2-83A35A72A125}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C9625CD-0C28-4047-8DC9-69A1FA4C5B78}
+	EndGlobalSection
+EndGlobal

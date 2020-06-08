@@ -1,0 +1,68 @@
+﻿<Window x:Class="Notepad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Icon="Windows_Notepad_Icon.ico"
+        Closing="MainWindow_OnClosing"
+        Title="{Binding State.FileName}" 
+        Height="450" 
+        Width="800">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding FileOpen}" Gesture="Ctrl+O"/>
+        <KeyBinding Command="{Binding FileSave}" Gesture="Ctrl+S"/>
+        <KeyBinding Command="{Binding FileSaveAs}" Gesture="Ctrl+Shift+S"/>
+        <KeyBinding Command="{Binding FileNew}" Gesture="Ctrl+N"/>
+
+        <!--// TODO: replace-->
+        <!--// TODO: format xml/json ? time for some plugins, me hearty -->
+        <!--// TODO: launch up the formatter/templater tool thingy, nimbletext ripoff -->
+        <!--// TODO: tab indent selection  TAB and Shift+Tab -->
+
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <!-- TODO: performance sucks - can you be clever and manage a window over a stream? -->
+        <TextBox Name="Text" 
+                 Grid.Row="0" 
+                 FontFamily="Consolas" 
+                 FontSize="16"
+                 AcceptsReturn="True" 
+                 AcceptsTab="True" 
+                 AllowDrop="True"
+                 PreviewDragOver="Text_OnPreviewDragOver"
+                 Drop="Text_OnDrop"
+                 SpellCheck.IsEnabled="True" 
+                 TextChanged="Text_OnTextChanged"
+                 HorizontalScrollBarVisibility="Visible" 
+                 VerticalScrollBarVisibility="Visible" 
+                 TextWrapping="NoWrap">
+            <TextBox.InputBindings>
+                <!-- does not work for some reason when applied at the window -->
+                <KeyBinding Command="{Binding DeleteLine}" Gesture="Shift+Delete"/>
+            </TextBox.InputBindings>
+            <!-- TODO: show line number down the side -->
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="ApplicationCommands.Cut" />
+                    <MenuItem Command="ApplicationCommands.Copy" />
+                    <MenuItem Command="ApplicationCommands.Paste" />
+                    <MenuItem Command="ApplicationCommands.SelectAll" />
+                    <!-- TODO:
+                        toggle wordwrap, there' s property on the textbox, so bind it
+                    -->
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <TextBlock Text="{Binding State.Status, Mode=OneWay}" />
+                <!-- TODO: line, col, chords -->
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

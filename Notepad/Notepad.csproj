@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Windows_Notepad_Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\error.ico" />
+    <None Remove="Icons\information.ico" />
+    <None Remove="Icons\question.ico" />
+    <None Remove="Icons\warning.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\error.ico" />
+    <Resource Include="Icons\information.ico" />
+    <Resource Include="Icons\question.ico" />
+    <Resource Include="Icons\warning.ico" />
+    <Resource Include="Windows_Notepad_Icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

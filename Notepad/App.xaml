@@ -1,0 +1,27 @@
+﻿<Application x:Class="Notepad.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Notepad"
+             Startup="App_OnStartup">
+    <Application.Resources>
+         
+    </Application.Resources>
+    <JumpList.JumpList>
+        <JumpList ShowRecentCategory="True">
+<!-- TODO: this app must be registered for .txt for this to work
+          https://docs.microsoft.com/en-us/windows/win32/shell/how-to-register-a-file-type-for-a-new-application  
+            
+            in cmd
+            
+            assoc  REM will list out file ext  associates
+            
+            REM adds the association to the textfile
+            ftype textfile="D:\Notepad\bin\Release\netcoreapp3.1\Notepad.EXE" "%1"
+            
+            i then went to default apps in the control panel and made this the default for txt
+            then reboot. not ideal. works for me.
+            
+            -->
+        </JumpList>
+        </JumpList.JumpList>
+</Application>
