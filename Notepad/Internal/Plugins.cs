@@ -37,6 +37,7 @@ namespace Notepad.Internal
             var codeBase = assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
             var path = Uri.UnescapeDataString(uri.Path);
+
             return System.IO.Path.GetDirectoryName(path);
         }
 

@@ -1,20 +1,26 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Notepad.Internal;
 
 namespace Notepad
 {
     public class State : NotifyObject
     {
-        public Window Owner { get; set; }
+        internal State(Window owner, TextBox textBox)
+        {
+            Owner = owner;
+            TextBox = textBox;
+        }
 
-        public TextBox TextBox { get; set; }
-        
+        public Window Owner { get; }
+
+        public TextBox TextBox { get; }
+
+        private FileInfo _file;
         public FileInfo File
         {
             get => _file;
-            set
+            internal set
             {
                 _file = value;
                 OnPropertyChanged(nameof(File));
@@ -23,14 +29,10 @@ namespace Notepad
         }
 
         public string FileName => File?.Name ?? "Untitled.txt";
-
-        public bool IsDirty { get; set; }
-
+        public bool IsDirty { get; internal set; }
         public string PluginFolder { get; internal set; }
-
+        
         private string _status;
-        private FileInfo _file;
-
         public string Status
         {
             get => _status;

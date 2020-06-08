@@ -41,10 +41,6 @@
                  HorizontalScrollBarVisibility="Visible" 
                  VerticalScrollBarVisibility="Visible" 
                  TextWrapping="NoWrap">
-            <TextBox.InputBindings>
-                <!-- does not work for some reason when applied at the window -->
-                <KeyBinding Command="{Binding DeleteLine}" Gesture="Shift+Delete"/>
-            </TextBox.InputBindings>
             <!-- TODO: show line number down the side -->
             <TextBox.ContextMenu>
                 <ContextMenu>
