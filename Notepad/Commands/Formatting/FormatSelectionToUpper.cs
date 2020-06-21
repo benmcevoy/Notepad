@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Notepad.Commands.Formatting
@@ -25,19 +23,11 @@ namespace Notepad.Commands.Formatting
                 };
         }
 
+        public override string ContextMenuParentName { get; } = "Format";
+
         public override MenuItem ContextMenuItem
         {
-            get
-            {
-                var menu = new MenuItem { Header = "Format selection", Name = "Format" };
-
-                menu.Items.Add(new MenuItem { Header = "To upper", Command = this, InputGestureText = "Ctrl+Shift+U" });
-
-                return menu;
-
-            }
+            get => new MenuItem { Header = "To upper", Command = this, InputGestureText = "Ctrl+Shift+U" };
         }
-
-        public override bool CanExecute(object parameter) => !string.IsNullOrEmpty(State.TextBox.SelectedText);
     }
 }

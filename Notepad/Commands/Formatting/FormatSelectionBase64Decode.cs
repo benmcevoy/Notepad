@@ -11,26 +11,24 @@ namespace Notepad.Commands.Formatting
 
         public override void Execute(object parameter)
         {
-            var raw = State.TextBox.SelectedText;
+            try
+            {
+                var raw = State.TextBox.SelectedText;
 
-            State.TextBox.SelectedText = Encoding.UTF8.GetString(Convert.FromBase64String(raw));
+                State.TextBox.SelectedText = Encoding.UTF8.GetString(Convert.FromBase64String(raw));
+            }
+            catch (Exception ex)
+            {
+                State.Status = ex.Message;
+            }
         }
 
         public override string Name { get; } = "Format selection from base64";
         public override InputBinding[] ApplicationInputBindings() => null;
+        public override string ContextMenuParentName { get; } = "Format";
         public override MenuItem ContextMenuItem
         {
-            get
-            {
-                var menu = new MenuItem { Header = "Format selection", Name = "Format" };
-
-                menu.Items.Add(new MenuItem { Header = "Base64 decode", Command = this });
-
-                return menu;
-
-            }
+            get => new MenuItem { Header = "Base64 decode", Command = this };
         }
-
-        public override bool CanExecute(object parameter) => !string.IsNullOrEmpty(State.TextBox.SelectedText);
     }
 }

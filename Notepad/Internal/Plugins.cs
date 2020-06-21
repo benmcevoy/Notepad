@@ -32,13 +32,13 @@ namespace Notepad.Internal
             LoadPlugins(state, new[] { assembly }.Concat(plugins).ToArray());
         }
 
-        private string AssemblyPath(Assembly assembly)
+        private static string AssemblyPath(Assembly assembly)
         {
             var codeBase = assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
             var path = Uri.UnescapeDataString(uri.Path);
 
-            return System.IO.Path.GetDirectoryName(path);
+            return Path.GetDirectoryName(path);
         }
 
         private static void LoadPlugins(State state, Assembly[] assemblies)
@@ -63,39 +63,45 @@ namespace Notepad.Internal
 
                     if (instance.ContextMenuItem == null) continue;
 
-                    var isSubMenu = false;
+                    var wasAddedToSubMenu = false;
 
                     // group
                     foreach (var menuItem in state.TextBox.ContextMenu.Items)
                     {
                         if (!(menuItem is MenuItem mi)) continue;
-                        if (mi.Name != instance.ContextMenuItem.Name) continue;
+                        if (mi.Name != instance.ContextMenuParentName) continue;
 
-                        foreach (MenuItem subMenuItem in instance.ContextMenuItem.Items)
-                        {
-                            mi.Items.Add(Clone(subMenuItem));
-                        }
+                        // found a matching parent name so add this to it's children
+                        mi.Items.Add(instance.ContextMenuItem);
 
-                        isSubMenu = true;
+                        wasAddedToSubMenu = true;
+                        break;
                     }
 
-                    if (!isSubMenu) state.TextBox.ContextMenu.Items.Add(instance.ContextMenuItem);
+                    if (wasAddedToSubMenu) continue;
+
+                    if (!string.IsNullOrWhiteSpace(instance.ContextMenuParentName))
+                    {
+                        // create a parent item to hold the new sub menu
+                        var parent = new MenuItem
+                        {
+                            Header = instance.ContextMenuParentName,
+                            Name = instance.ContextMenuParentName
+                        };
+
+                        
+
+                        parent.Items.Add(instance.ContextMenuItem);
+
+                        state.TextBox.ContextMenu.Items.Add(parent);
+
+                        continue;
+                    }
+
+                    // just add it
+                    state.TextBox.ContextMenu.Items.Add(instance.ContextMenuItem);
                 }
             }
-        }
-
-        // this will probably cause issues
-        private static MenuItem Clone(MenuItem source)
-        {
-            var result =  new MenuItem();
-
-            foreach (var propertyInfo in source.GetType().GetProperties())
-            {
-                if(propertyInfo.CanWrite)
-                    propertyInfo.SetValue(result, propertyInfo.GetValue(source));
-            }
-
-            return result;
         }
     }
 }

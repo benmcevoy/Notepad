@@ -17,19 +17,10 @@ namespace Notepad.Commands.Formatting
 
         public override string Name { get; } = "Format selection from url encoded";
         public override InputBinding[] ApplicationInputBindings() => null;
+        public override string ContextMenuParentName { get; } = "Format";
         public override MenuItem ContextMenuItem
         {
-            get
-            {
-                var menu = new MenuItem { Header = "Format selection", Name = "Format" };
-
-                menu.Items.Add(new MenuItem { Header = "Url decode", Command = this });
-
-                return menu;
-
-            }
+            get => new MenuItem { Header = "Url decode", Command = this };
         }
-
-        public override bool CanExecute(object parameter) => !string.IsNullOrEmpty(State.TextBox.SelectedText);
     }
 }

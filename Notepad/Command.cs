@@ -11,6 +11,7 @@ namespace Notepad
         public abstract void Execute(object parameter);
         public abstract string Name { get; }
         public abstract InputBinding[] ApplicationInputBindings();
+        public virtual string ContextMenuParentName { get; }
         public abstract MenuItem ContextMenuItem { get; }
         public virtual bool CanExecute(object parameter) => true;
         public virtual event EventHandler CanExecuteChanged;

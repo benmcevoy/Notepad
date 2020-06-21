@@ -40,7 +40,8 @@
                  TextChanged="Text_OnTextChanged"
                  HorizontalScrollBarVisibility="Visible" 
                  VerticalScrollBarVisibility="Visible" 
-                 TextWrapping="NoWrap">
+                 TextWrapping="NoWrap"
+                 >
             <!-- TODO: show line number down the side -->
             <TextBox.ContextMenu>
                 <ContextMenu>

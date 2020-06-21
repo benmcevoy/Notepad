@@ -23,18 +23,11 @@ namespace Notepad.Commands.Formatting
             };
         }
 
+        public override string ContextMenuParentName { get; } = "Format";
+
         public override MenuItem ContextMenuItem
         {
-            get
-            {
-                var menu = new MenuItem { Header = "Format selection", Name = "Format" };
-
-                menu.Items.Add(new MenuItem { Header = "To lower", Command = this, InputGestureText = "Ctrl+U" });
-
-                return menu;
-            }
+            get => new MenuItem { Header = "To lower", Command = this, InputGestureText = "Ctrl+U" };
         }
-
-        public override bool CanExecute(object parameter) => !string.IsNullOrEmpty(State.TextBox.SelectedText);
     }
 }
