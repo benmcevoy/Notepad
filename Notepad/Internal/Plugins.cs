@@ -50,7 +50,6 @@ namespace Notepad.Internal
                     .GetExportedTypes()
                     .Where(type => type.IsSubclassOf(typeof(Command)));
 
-
                 foreach (var command in exportedCommands)
                 {
                     var instance = Activator.CreateInstance(command, state) as Command;
@@ -58,49 +57,50 @@ namespace Notepad.Internal
                     if (instance == null) continue;
 
                     Commands.Add(instance);
-
-                    state.Owner.InputBindings.AddRange(instance.ApplicationInputBindings() ?? new InputBinding[] { });
-
-                    if (instance.ContextMenuItem == null) continue;
-
-                    var wasAddedToSubMenu = false;
-
-                    // group
-                    foreach (var menuItem in state.TextBox.ContextMenu.Items)
-                    {
-                        if (!(menuItem is MenuItem mi)) continue;
-                        if (mi.Name != instance.ContextMenuParentName) continue;
-
-                        // found a matching parent name so add this to it's children
-                        mi.Items.Add(instance.ContextMenuItem);
-
-                        wasAddedToSubMenu = true;
-                        break;
-                    }
-
-                    if (wasAddedToSubMenu) continue;
-
-                    if (!string.IsNullOrWhiteSpace(instance.ContextMenuParentName))
-                    {
-                        // create a parent item to hold the new sub menu
-                        var parent = new MenuItem
-                        {
-                            Header = instance.ContextMenuParentName,
-                            Name = instance.ContextMenuParentName
-                        };
-
-                        
-
-                        parent.Items.Add(instance.ContextMenuItem);
-
-                        state.TextBox.ContextMenu.Items.Add(parent);
-
-                        continue;
-                    }
-
-                    // just add it
-                    state.TextBox.ContextMenu.Items.Add(instance.ContextMenuItem);
                 }
+            }
+
+            foreach (var cmd in Commands.OrderBy(x => x.Order))
+            {
+                state.Owner.InputBindings.AddRange(cmd.ApplicationInputBindings() ?? new InputBinding[] { });
+
+                if (cmd.ContextMenuItem == null) continue;
+
+                var wasAddedToSubMenu = false;
+
+                // group
+                foreach (var menuItem in state.TextBox.ContextMenu.Items)
+                {
+                    if (!(menuItem is MenuItem mi)) continue;
+                    if (mi.Name != cmd.ContextMenuParentName) continue;
+
+                    // found a matching parent name so add this to it's children
+                    mi.Items.Add(cmd.ContextMenuItem);
+
+                    wasAddedToSubMenu = true;
+                    break;
+                }
+
+                if (wasAddedToSubMenu) continue;
+
+                if (!string.IsNullOrWhiteSpace(cmd.ContextMenuParentName))
+                {
+                    // create a parent item to hold the new sub menu
+                    var parent = new MenuItem
+                    {
+                        Header = cmd.ContextMenuParentName,
+                        Name = cmd.ContextMenuParentName
+                    };
+
+                    parent.Items.Add(cmd.ContextMenuItem);
+
+                    state.TextBox.ContextMenu.Items.Add(parent);
+
+                    continue;
+                }
+
+                // just add it
+                state.TextBox.ContextMenu.Items.Add(cmd.ContextMenuItem);
             }
         }
     }

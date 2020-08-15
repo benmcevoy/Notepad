@@ -15,5 +15,6 @@ namespace Notepad
         public abstract MenuItem ContextMenuItem { get; }
         public virtual bool CanExecute(object parameter) => true;
         public virtual event EventHandler CanExecuteChanged;
+        public virtual int Order { get; } = 100;
     }
 }

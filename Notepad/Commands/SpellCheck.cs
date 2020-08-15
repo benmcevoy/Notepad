@@ -9,6 +9,8 @@ namespace Notepad.Commands
     {
         private readonly MenuItem _speller;
 
+        public override int Order => 999;
+
         public SpellCheck(State state) : base(state)
         {
             _speller = new MenuItem { Name = "Notepad_Commands_SpellCheck", Header = Name, Command = this };
