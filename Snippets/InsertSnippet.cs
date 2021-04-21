@@ -108,7 +108,7 @@ namespace Snippets
 
         private static void InsertText(TextBox textBox, string text)
         {
-            textBox.SelectedText = text;
+            textBox.SelectedText = text.Replace(@"\r\n", Environment.NewLine);
             textBox.CaretIndex += text.Length;
             textBox.SelectionLength = 0;
         }
